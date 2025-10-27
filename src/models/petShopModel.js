@@ -12,3 +12,32 @@ export const findById = async (id) => {
         where: { id: Number(id) }
     })
 }
+
+export const create = async (data) => {
+    return await prisma.pet.create({
+        data: {
+            nome: data.nome,
+            especie: data.especie,
+            idade: data.idade,
+            dono: data.dono
+        }
+    })
+}
+
+export const deletePet = async (id) => {
+    return await prisma.pet.delete({
+        where: { id: Number(id) }
+    })
+}
+
+export const update = async (id, data) => {
+    return await prisma.pet.update({
+        where: { id: Number(id) },
+        data: {
+            ...(data.nome && { nome: data.nome }),
+            ...(data.especie && { especie: data.casa }),
+            ...(data.dono && { dono: data.patrono }),
+            ...(data.anoMatricula && { idade: Number(data.idade) }),
+        }
+    })
+}
